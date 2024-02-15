@@ -1,0 +1,49 @@
+---
+title: "Quarto and duckdb WASM"
+include-in-header:
+    - text: | 
+        <script type="importmap">
+            {
+                "imports": {
+                    "apache-arrow": "https://cdn.jsdelivr.net/npm/apache-arrow/Arrow.mjs",
+                    "flatbuffers": "https://cdn.jsdelivr.net/npm/flatbuffers/mjs/flatbuffers.js",
+                    "tslib": "https://cdn.jsdelivr.net/npm/tslib/tslib.es6.mjs "
+                }
+            }
+        </script>
+include-after-body:
+    - text: <script type="module" src="instantiate-duckdb.mjs"></script>
+    - text: <script type="module" src="query.mjs"></script>
+---
+
+## Hello Duckdb WASM
+
+This notebook loads `Duckdb WASM`.
+
+Uncomment the following `ojs` cell to [make the `importmap` invalid](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap): the ojs-runtime is loaded as `module` in the `head` before the `importmap`.
+
+
+<!-- ```{ojs}
+helloWorld = console.log("hello world");
+``` -->
+
+## Example: valid importmap
+
+See [importmap-patched.html](./importmap-patched.html).
+
+```html
+<head>
+    …
+    <!-- the importmap is declared before the ojs 
+    <script> element that imports a module -->
+    <script type="importmap">
+        {
+            …
+        }
+    </script>
+    <script type="module" src="importmap_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+</head>
+<body>
+    …
+</body>
+```
